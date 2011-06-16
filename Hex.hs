@@ -113,6 +113,4 @@ pathLength (PathSet i j k) = abs i + abs j + abs k
 pathLRLength (PathLR _ a b) = a + b
 
 
---colorings
-
 

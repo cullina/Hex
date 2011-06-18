@@ -12,6 +12,7 @@ data PathSet = PathSet Int Int Int deriving Show
 data PathLR = Zero | PathLR HexStep Int Int deriving Show -- First int > 0 , second int >= 0
 
 
+
 xVal (Hex x y) = x
 yVal (Hex x y) = y
 zVal (Hex x y) = - (x + y)

@@ -1,0 +1,95 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+
+
+\newtheorem*{mydef}{Definition}
+
+
+\newcommand{\matrixtwoone}[2]{\left(\begin{array}{r}#1\\#2\end{array}\right)}
+
+\newcommand{\matrixtwotwo}[4]{\left(\begin{array}{rr}#1&#2\\#3&#4\end{array}\right)}
+
+\newcommand{\matrixtwothree}[6]{\left(\begin{array}{rrr}#1&#2&#3\\#4&#5&#6\end{array}\right)}
+
+\newcommand{\matrixthreeone}[3]{\left(\begin{array}{r}#1\\#2\\#3\end{array}\right)}
+
+\newcommand{\matrixthreetwo}[6]{\left(\begin{array}{rr}#1&#2\\#3&#4\\#5&#6\end{array}\right)}
+
+\newcommand{\matrixthreethree}[9]{\left(\begin{array}{rrr}#1&#2&#3\\#4&#5&#6\\#7&#8&#9\end{array}\right)}
+
+
+
+
+\begin{document}
+\section{Hexagonal grids}
+One way to represent a hexagonal lattice is to consider it as a slice through a cubic lattice. Let the slicing plane be given by $x+y+z=0$. Then $(0,0,0)$ has three neighbors in the plane: $(1,-1,0)$, $(-1,1,0)$, $(0,1,-1)$, $(0,-1,1)$, $(1,0,-1)$, and $(-1,0,1)$. Name the six differences as $i$, $-i$, $j$, $-j$, $-k$, and $k$. Then a path though the hex lattice can be written as a sequence of these six moves. Paths though the grid form a group under composition, and the six moves generate the group. A natural equivalence relationship on paths equates them if they produce the same net translation. For example, $i+j+k=0$, which reflects that a path of one of each move is a triangle. The group of translations, unlike the group of paths, is abelian. A path given in terms of $i$, $j$, and $k$ can be reduced to its translation by the matrix 
+\[
+\matrixthreeone{x}{y}{z} = 
+\matrixthreethree {0}{-1}{1} {1}{0}{-1} {-1}{1}{0}
+\matrixthreeone{i}{j}{k}
+\]
+The matrix has rank 2. Because the matrix is not full rank, there is not a unique way to convert a difference of coordinates to a set of $i$. $j$, and $k$ moves.
+
+\subsection{Metrics}
+We can import some structure from the 3 dimesional space. The 1-norm is $d_1(t)=|x|+|y|+|z|$, the inner product $<t_1,t_2>=x_1x_2+y_1y_2+z_1z_2$ and the 2-norm is $d_2(t)=\sqrt{<t,t>}=\sqrt{x^2+y^2+z^2}=\sqrt{x^2+y^2+(-x-y)^2}=\sqrt{2(x^2+xy+y^2)}$. The six basic moves each have length $d_1=2$ and $d_2=\sqrt{2}$, so it is convenient to normalize the metrics by these lengths. $<i,j>=<j,k>=<i,k>=-1$
+
+\subsection{Shortest Paths}
+Consider a path $p = (a,b,c)^T$ and its translation $t=ai+bj+ck=(b-c,c-a,a-b)^T$. The path has length $|a|+|b|+|c|$. Is it the shortest possible path for this displacement? The distance between the points is $d_1=\frac{1}{2}(|a-b|+|c-a|+|b-c|)$. If our path is the shortest possible, the length must equal the distance.
+\[ |a|+|b|+|c|=\frac{1}{2}(|b-c|+|c-a|+|a-b|) \]
+\[ (|a|+|b|-|a-b|)+(|b|+|c|-|b-c|)+(|c|+|a|-|c-a|)=0 \]
+In general $|x|+|y|\geq|x-y|$, with equality when $x$ and $y$ have opposite sign or one or both are zero. $a$, $b$, and $c$ cannot all have opposite signs, so at least one must be zero.  If only one of the values is zero, the other two must have opposite signs.  Stated more generally, if $ai+bj+ck$ gives the shortest path, when $a$, $b$, and $c$ are sorted, the middle value must be zero.  Geometrically, this means shortest paths can be drawn with one or zero turns, and the turn has an internal angle of $2\pi/3$.
+
+We need solutions to the matrix equation
+\[
+\mathbf{I} = 
+\matrixthreethree {0}{-1}{1} {1}{0}{-1} {-1}{1}{0} \mathbf{M} \\
+\]
+\begin{align*}
+\matrixthreethree {0}{0}{0} {0}{1}{0} {0}{0}{1} 
+=& \matrixthreethree {0}{-1}{1} {1}{0}{-1} {-1}{1}{0}  \mathbf{M}_i \\
+\matrixthreethree {1}{0}{0} {0}{0}{0} {0}{0}{1} 
+=& \matrixthreethree {0}{-1}{1} {1}{0}{-1} {-1}{1}{0}   \mathbf{M}_j \\
+\matrixthreethree {1}{0}{0} {0}{1}{0} {0}{0}{0}
+=& \matrixthreethree {0}{-1}{1} {1}{0}{-1} {-1}{1}{0}  \mathbf{M}_k \\
+\end{align*}
+\[
+\mathbf{M}_i = \matrixthreethree {0}{0}{0} {0}{0}{-1} {0}{1}{0} \quad 
+\mathbf{M}_j = \matrixthreethree {0}{0}{1} {0}{0}{0} {-1}{0}{0} \quad 
+\mathbf{M}_k = \matrixthreethree {0}{-1}{0} {1}{0}{0} {0}{0}{0}
+\]
+These give three paths with correct displacement that each use only 2 types of moves. The shortest of these three will be shortest possible path.
+\[
+l_i = |z| + |y| \quad l_i = |z| + |x| \quad l_i = |y| + |x|
+\]
+So if we know coordinate is largest, we should not use make any steps that are normal to that coordinate axis. 
+
+\subsection{One sixth plane}
+Repetition of one of the basic moves priduces a line where one of the three coordinates is zero. These three lines divide the plane into six sextants, each with a different pattern of signs on the coordinates.
+\[
+\begin{tabular}{c|ccc|cc}
+Sextant & x & y & z & + & - \\
+\hline
+1&+&+&-&+i&-j\\
+2&+&-&-&+i&-k\\
+3&+&-&+&+j&-k\\
+4&-&-&+&+j&-i\\
+5&-&+&+&+k&-i\\
+6&-&+&-&+k&-j\\
+\end{tabular}
+\]
+
+\section{Rhombic dodecahedral grids}
+A three dimension lattice can be produced by slicing a four dimensional cubic lattice
+
+\section{Dodecahedra}
+A dodecahedron has $12$ pentagonal faces, $12*5/2=30$ edges, and $12*5/3=20$ vertices. An icosahedron has $20$ triangular faces, 30 edges, and 12 vertices.
+
+\subsection{Alternating group representation}
+A position in the icosahedral graph is given by an edge vertex pair, where the edge and vertex are incident. There are two basic moves, flip, which changes the vertex, and rotate, which changes the edge. Each vertex is incident with 5 edges, and each edge is incident with 2 vertices. These two moves generate all of the positions in the graph, and consequently the whole symmetry group of the graph.
+
+The symmetry group of the graph is isomorphic to the alternating group on 5 element. Using cycle notation, let flip be represented by the element $(12345)$ and let flip be represented by $(23)(45)$.
+
+\end{document}

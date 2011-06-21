@@ -10,6 +10,13 @@ data Region = Region {
     , zPlus  :: Int
     , zMinus :: Int
     }
+
+singleHexRegion hex =
+    Region x x y y z z
+        where x = xVal hex
+              y = yVal hex
+              z = zVal hex
+
     
 isSubsetOf a b = 
       xPlus  a <= xPlus  b &&
@@ -38,10 +45,6 @@ perimeter (Region xPlus xMinus yPlus yMinus zPlus zMinus) =
     -(zPlus + xMinus + yMinus),
     yMinus + zPlus + xPlus
     )
-      
-singleHexRegion hex =
-    Region x x y y z z
-        where x = xVal hex
-              y = yVal hex
-              z = zVal hex
 
+
+    

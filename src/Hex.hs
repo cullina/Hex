@@ -85,13 +85,13 @@ rotate (Hex x y) = Hex (- y) (x + y)
             
 unrotate (Hex x y) = Hex (x + y) (- x)
 
-rotateHS (HexStep I b) = (HexStep K (not b))
-rotateHS (HexStep J b) = (HexStep I (not b))
-rotateHS (HexStep K b) = (HexStep J (not b))
+rotateHS (HexStep I b) = HexStep K (not b)
+rotateHS (HexStep J b) = HexStep I (not b)
+rotateHS (HexStep K b) = HexStep J (not b)
 
-unrotateHS (HexStep I b) = (HexStep J (not b))
-unrotateHS (HexStep J b) = (HexStep K (not b))
-unrotateHS (HexStep K b) = (HexStep I (not b))
+unrotateHS (HexStep I b) = HexStep J (not b)
+unrotateHS (HexStep J b) = HexStep K (not b)
+unrotateHS (HexStep K b) = HexStep I (not b)
 
 
 rotatePS   (PathSet i j k) = PathSet (-j) (-k) (-i)

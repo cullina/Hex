@@ -13,8 +13,8 @@ data PathLR = Zero | PathLR HexStep Int Int deriving Show -- First int > 0 , sec
 
 
 
-xVal (Hex x y) = x
-yVal (Hex x y) = y
+xVal (Hex x _) = x
+yVal (Hex _ y) = y
 zVal (Hex x y) = - (x + y)
 
 instance Show Hex where
@@ -30,10 +30,10 @@ pathFromStep (HexStep J b) n = PathSet   0 (toSign b n) 0
 pathFromStep (HexStep K b) n = PathSet   0 0 (toSign b n)
 
 rightPath Zero           = PathSet 0 0 0
-rightPath (PathLR h a b) = pathFromStep h a
+rightPath (PathLR h a _) = pathFromStep h a
 
 leftPath Zero           = PathSet 0 0 0
-leftPath (PathLR h a b) = pathFromStep (rotateHS h) b
+leftPath (PathLR h _ b) = pathFromStep (rotateHS h) b
 
 pathFromPathLR plr = addPaths (rightPath plr) (leftPath plr)
 
@@ -112,6 +112,8 @@ twoNorm (Hex x y) = x * x + x * y + y * y
 pathLength (PathSet i j k) = abs i + abs j + abs k
 
 pathLRLength (PathLR _ a b) = a + b
+
+pathLRLength Zero = 0
 
 
 

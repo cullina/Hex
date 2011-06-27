@@ -49,7 +49,10 @@ Library
   -- Packages needed in order to build this package.
   Build-depends:       base >= 4.0
 
+  ghc-options:    -W -Werror -fwarn-tabs    
+
   hs-source-dirs:  src
+
   
   -- Modules not exported by this package.
   -- Other-modules:       

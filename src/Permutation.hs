@@ -14,11 +14,11 @@ instance Monoid Perm where
     mappend p (Perm a b c d e) = 
         Perm (f a) (f b) (f c) (f d) (f e)
             where f = g p 
-                  g (Perm a b c d e) One   = a
-                  g (Perm a b c d e) Two   = b
-                  g (Perm a b c d e) Three = c
-                  g (Perm a b c d e) Four  = d
-                  g (Perm a b c d e) Five  = e
+                  g (Perm a _ _ _ _) One   = a
+                  g (Perm _ b _ _ _) Two   = b
+                  g (Perm _ _ c _ _) Three = c
+                  g (Perm _ _ _ d _) Four  = d
+                  g (Perm _ _ _ _ e) Five  = e
  
 
 
